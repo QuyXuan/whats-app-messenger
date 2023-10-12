@@ -1,44 +1,53 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatapp_messenger/common/extensions/custom_theme_extension.dart';
 import 'package:whatapp_messenger/common/helper/show_alert_dialog.dart';
 import 'package:whatapp_messenger/common/utils/common_colors.dart';
 import 'package:whatapp_messenger/common/widgets/custom_elevated_button.dart';
 import 'package:whatapp_messenger/common/widgets/custom_icon_button.dart';
+import 'package:whatapp_messenger/feature/auth/controller/auth_controller.dart';
 import 'package:whatapp_messenger/feature/auth/widgets/custom_text_field.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
 
   @override
-  State<StatefulWidget> createState() {
+  ConsumerState<LoginPage> createState() {
     return _LoginPageState();
   }
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends ConsumerState<LoginPage> {
   late TextEditingController countryNameController;
   late TextEditingController countryCodeController;
   late TextEditingController phoneNumberController;
 
   sendCodeToPhone() {
-    final phone = phoneNumberController.text;
-    final name = countryCodeController.text;
+    final phoneNumber = phoneNumberController.text;
+    final countryName = countryNameController.text;
+    final countryCode = countryCodeController.text;
 
-    if (phone.isEmpty) {
+    if (phoneNumber.isEmpty) {
       return showAlertDialog(
           context: context, message: "Your phone number is not valid");
-    } else if (phone.length < 9) {
+    } else if (phoneNumber.length < 9) {
       return showAlertDialog(
           context: context,
           message:
-              "The phone number you entered is too short for the country: $name.\n\n\nInclude your area code if you haven't");
-    } else if (phone.length > 10) {
+              "The phone number you entered is too short for the country: $countryName.\n\n\nInclude your area code if you haven't");
+    } else if (phoneNumber.length > 10) {
       return showAlertDialog(
           context: context,
           message:
-              "The phone number you entered is too long for the country $name");
+              "The phone number you entered is too long for the country $countryName");
     }
+
+    //request a verification code
+    ref.read(authControllerProvider).sendSmsCode(
+          context: context,
+          phoneNumber: '+$countryCode$phoneNumber',
+        );
   }
 
   showCountryCodePicker() {
@@ -73,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
       onSelect: (country) {
         countryNameController.text = country.name;
-        countryCodeController.text = country.countryCode;
+        countryCodeController.text = country.phoneCode;
       },
     );
   }
@@ -81,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     countryNameController = TextEditingController(text: 'Vietnam');
-    countryCodeController = TextEditingController(text: 'VN');
+    countryCodeController = TextEditingController(text: '84');
     phoneNumberController = TextEditingController();
     super.initState();
   }
