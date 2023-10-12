@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "694177376087",
+    "project_id": "whatsapp-messenger-a452a",
+    "storage_bucket": "whatsapp-messenger-a452a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:694177376087:android:3d6fe78a3aab23ecdb4012",
+        "android_client_info": {
+          "package_name": "com.example.whatapp_messenger"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeeyvB5DjYE4rPoRr_pY4xm_gZCJkc5Cw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
