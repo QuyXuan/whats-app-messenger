@@ -31,12 +31,14 @@ class AuthController {
 
   void saveUserInfoToFirestore({
     required String username,
+    required String countryCode,
     required var profileImage,
     required BuildContext context,
     required bool mounted,
   }) {
     authRepository.saveUserInfoToFirestore(
       username: username,
+      countryCode: countryCode,
       profileImage: profileImage,
       ref: ref,
       context: context,
@@ -48,12 +50,14 @@ class AuthController {
     required BuildContext context,
     required String smsCodeId,
     required String smsCode,
+    required String countryCode,
     required bool mounted,
   }) {
     authRepository.verifySmsCode(
       context: context,
       smsCodeId: smsCodeId,
       smsCode: smsCode,
+      countryCode: countryCode,
       mounted: mounted,
     );
   }
@@ -61,10 +65,12 @@ class AuthController {
   void sendSmsCode({
     required BuildContext context,
     required String phoneNumber,
+    required String countryCode,
   }) {
     authRepository.sendSmsCode(
       context: context,
       phoneNumber: phoneNumber,
+      countryCode: countryCode,
     );
   }
 }

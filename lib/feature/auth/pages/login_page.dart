@@ -47,6 +47,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     ref.read(authControllerProvider).sendSmsCode(
           context: context,
           phoneNumber: '+$countryCode$phoneNumber',
+          countryCode: countryCode,
         );
   }
 

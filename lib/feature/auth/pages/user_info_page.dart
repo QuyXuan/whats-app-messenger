@@ -15,9 +15,14 @@ import 'package:whatapp_messenger/feature/auth/pages/image_picker_page.dart';
 import 'package:whatapp_messenger/feature/auth/widgets/custom_text_field.dart';
 
 class UserInfoPage extends ConsumerStatefulWidget {
-  const UserInfoPage({super.key, this.profileImageUrl});
+  const UserInfoPage({
+    super.key,
+    this.profileImageUrl,
+    this.countryCode,
+  });
 
   final String? profileImageUrl;
+  final String? countryCode;
 
   @override
   ConsumerState<UserInfoPage> createState() => _UserInfoPageState();
@@ -46,6 +51,7 @@ class _UserInfoPageState extends ConsumerState<UserInfoPage> {
 
     ref.read(authControllerProvider).saveUserInfoToFirestore(
           username: username,
+          countryCode: widget.countryCode ?? '',
           profileImage:
               imageCamera ?? imageGallery ?? widget.profileImageUrl ?? '',
           context: context,
