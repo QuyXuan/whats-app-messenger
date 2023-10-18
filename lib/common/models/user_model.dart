@@ -4,6 +4,7 @@ class UserModel {
   final String profileImageUrl;
   final bool active;
   final String phoneNumber;
+  final String countryCode;
   final List<String> groupId;
 
   UserModel({
@@ -12,6 +13,7 @@ class UserModel {
     required this.profileImageUrl,
     required this.active,
     required this.phoneNumber,
+    required this.countryCode,
     required this.groupId,
   });
 
@@ -22,6 +24,7 @@ class UserModel {
       'profileImageUrl': profileImageUrl,
       'active': active,
       'phoneNumber': phoneNumber,
+      'countryCode': countryCode,
       'groupId': groupId,
     };
   }
@@ -33,6 +36,7 @@ class UserModel {
       profileImageUrl: map['profileImageUrl'] ?? '',
       active: map['active'] ?? false,
       phoneNumber: map['phoneNumber'] ?? '',
+      countryCode: map['countryCode'] ?? '',
       groupId: List<String>.from(map['groupId']),
     );
   }

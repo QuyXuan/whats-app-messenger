@@ -37,6 +37,7 @@ class AuthRepository {
 
   void saveUserInfoToFirestore({
     required String username,
+    required String countryCode,
     required var profileImage,
     required ProviderRef ref,
     required BuildContext context,
@@ -61,6 +62,7 @@ class AuthRepository {
         profileImageUrl: profileImageUrl,
         active: true,
         phoneNumber: auth.currentUser!.phoneNumber!,
+        countryCode: countryCode,
         groupId: [],
       );
 
@@ -81,6 +83,7 @@ class AuthRepository {
     required BuildContext context,
     required String smsCodeId,
     required String smsCode,
+    required String countryCode,
     required bool mounted,
   }) async {
     try {
@@ -96,7 +99,10 @@ class AuthRepository {
       Navigator.of(context).pushNamedAndRemoveUntil(
         Routes.userInfo,
         (route) => false,
-        arguments: user?.profileImageUrl,
+        arguments: {
+          'profileImageUrl': user?.profileImageUrl,
+          'countryCode': countryCode,
+        },
       );
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
@@ -107,6 +113,7 @@ class AuthRepository {
   void sendSmsCode({
     required BuildContext context,
     required String phoneNumber,
+    required String countryCode,
   }) async {
     try {
       showLoadingDialog(
@@ -128,6 +135,7 @@ class AuthRepository {
             arguments: {
               'phoneNumber': phoneNumber,
               'smsCodeId': smsCodeId,
+              'countryCode': countryCode,
             },
           );
         },

@@ -8,11 +8,13 @@ import 'package:whatapp_messenger/feature/auth/widgets/custom_text_field.dart';
 class VerificationPage extends ConsumerWidget {
   final String smsCodeId;
   final String phoneNumber;
+  final String countryCode;
 
   const VerificationPage({
     super.key,
     required this.smsCodeId,
     required this.phoneNumber,
+    required this.countryCode,
   });
 
   void verifySmsCode(
@@ -24,6 +26,7 @@ class VerificationPage extends ConsumerWidget {
           context: context,
           smsCodeId: smsCodeId,
           smsCode: smsCode,
+          countryCode: countryCode,
           mounted: true,
         );
   }
